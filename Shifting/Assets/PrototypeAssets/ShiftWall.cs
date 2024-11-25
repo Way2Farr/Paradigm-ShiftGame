@@ -23,7 +23,6 @@ public class ShiftWall : MonoBehaviour
             player3D.gameObject.SetActive(false);
             insideWall = true;
             cameraScript.wall = transform;
-            Debug.Log(player2D.localPosition);
         }
     }
 

@@ -14,7 +14,7 @@ public class PlayerController3D : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        lookRotation = transform.forward;
+        lookRotation = Vector3.zero;
     }
 
     void Update()
