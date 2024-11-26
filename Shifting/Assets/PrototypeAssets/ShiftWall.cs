@@ -28,7 +28,7 @@ public class ShiftWall : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButton(0) && insideWall) {
+        if (Input.GetMouseButton(2) && insideWall) {
             player3D.position = player2D.position;
             player2D.gameObject.SetActive(false);
             player3D.gameObject.SetActive(true);
