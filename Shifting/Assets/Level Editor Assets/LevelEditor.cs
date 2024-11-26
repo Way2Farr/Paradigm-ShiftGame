@@ -17,7 +17,7 @@ public class LevelEditor : MonoBehaviour
 
         if(Input.GetMouseButtonDown(0) && itemButtons[CurrentButtonPressed].Clicked){
             itemButtons[CurrentButtonPressed].Clicked = false;
-            Instantiate(itemPrefabs[CurrentButtonPressed], new Vector3(worldPos.x, worldPos.y, 0), Quaternion.identity);
+            Instantiate(itemPrefabs[CurrentButtonPressed], new Vector3(worldPos.x, worldPos.y, worldPos.z), Quaternion.identity);
 
             Destroy(GameObject.FindGameObjectWithTag("ItemImage"));
         }
