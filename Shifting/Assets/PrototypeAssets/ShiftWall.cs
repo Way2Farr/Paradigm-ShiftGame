@@ -10,6 +10,8 @@ public class ShiftWall : MonoBehaviour
     private Transform player2D;
     [SerializeField]
     private Transform player3D;
+
+    // Changed to public static to reference in PlayerCamera3D
     public static bool insideWall;
     void OnCollisionStay(Collision collision)
     {

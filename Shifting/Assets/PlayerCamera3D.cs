@@ -16,7 +16,7 @@ public class Camera3D : MonoBehaviour
         
     }
 
-
+    // Added Cursor Unlocking Within Wall
     void Update() {
 
         if (ShiftWall.insideWall == true) {
