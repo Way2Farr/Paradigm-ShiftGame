@@ -13,12 +13,26 @@ public class Camera3D : MonoBehaviour
     {
         playerMovement3D = playerTransform.GetComponent<PlayerMovement3D>();
         offset = new Vector3(0, 1, -5);
-
-        Cursor.lockState = CursorLockMode.Locked;
+        
     }
+
+
+    void Update() {
+
+        if (ShiftWall.insideWall == true) {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+    }
+
 
     void LateUpdate()
     {
+
         Quaternion lookRotation = Quaternion.Euler(playerMovement3D.LookRotation);
         RaycastHit hitInfo;
         bool isCameraBlocked = Physics.Raycast(playerTransform.position, lookRotation * offset, out hitInfo, offset.magnitude);

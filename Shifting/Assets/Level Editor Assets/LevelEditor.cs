@@ -12,24 +12,23 @@ public class LevelEditor : MonoBehaviour
 
     [SerializeField] private Camera mainCamera;
 
-
-
     public int CurrentButtonPressed;
 
 
     private void Update() {
 
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition); 
-        if (Physics.Raycast(ray, out RaycastHit raycastHit)){
-            transform.position = raycastHit.point;
+        if (Physics.Raycast(ray, out RaycastHit raycastHit))
+        {
+            if(Input.GetMouseButtonDown(0) && itemButtons[CurrentButtonPressed].Clicked){
+                itemButtons[CurrentButtonPressed].Clicked = false;
+                Instantiate(itemPrefabs[CurrentButtonPressed], raycastHit.point, Quaternion.identity);
+
+                Destroy(GameObject.FindGameObjectWithTag("ItemImage"));
+        }
         }
 
-        if(Input.GetMouseButtonDown(0) && itemButtons[CurrentButtonPressed].Clicked){
-            itemButtons[CurrentButtonPressed].Clicked = false;
-            Instantiate(itemPrefabs[CurrentButtonPressed], new Vector3(raycastHit.point.x, raycastHit.point.y, raycastHit.point.z), Quaternion.identity);
-
-            Destroy(GameObject.FindGameObjectWithTag("ItemImage"));
-        }
+    
     }
     
 }

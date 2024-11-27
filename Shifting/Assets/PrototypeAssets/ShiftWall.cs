@@ -10,7 +10,7 @@ public class ShiftWall : MonoBehaviour
     private Transform player2D;
     [SerializeField]
     private Transform player3D;
-    private bool insideWall;
+    public static bool insideWall;
     void OnCollisionStay(Collision collision)
     {
         ContactPoint contact = collision.GetContact(0);

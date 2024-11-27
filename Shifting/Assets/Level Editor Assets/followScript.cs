@@ -1,17 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class followScript : MonoBehaviour
+public class FollowScript : MonoBehaviour
 {
+    public Camera mainCamera;
+
+    void Start()
+    {
+        if (mainCamera == null)
+        {
+            mainCamera = Camera.main;
+            if (mainCamera == null)
+            {
+                Debug.LogError("Main Camera not found!");
+            }
+        }
+    }
 
     void Update()
     {
-        Vector3 screenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
-
-        Vector3 worldPos = (Camera.main.ScreenToWorldPoint(screenPos));
-
-        transform.position = worldPos;
-        
+        if (mainCamera != null)
+        {
+            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit raycastHit))
+            {
+                transform.position = raycastHit.point;
+            }
+        }
     }
 }
