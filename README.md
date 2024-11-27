@@ -9,7 +9,7 @@ You are also equipped with your "Camera of Creation" that can place stickers and
 
 
 ## Group Responsibilities:
-Group members: Nathan, Mark, Vincent, Cody, Rage
+Group members: Nathan Gozun, Mark Canilang, Vincent Chu, Cody Tran, Rage Dizon
 
 Mark: 2d movement, sound
 
