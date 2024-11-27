@@ -22,7 +22,7 @@ public class PlayerMovement3D : MonoBehaviour
     private Vector3 lookRotation;
     private Vector3 targetVelocity; // targetVelocity & currentVelocity only for X-Z axis movement
     private Vector3 currentVelocity;
-    // Start is called before the first frame update
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -33,7 +33,6 @@ public class PlayerMovement3D : MonoBehaviour
         currentVelocity = Vector3.zero;
     }
 
-    // Update is called once per frame
     void Update()
     {
         // take mouse input and rotate character
@@ -42,7 +41,7 @@ public class PlayerMovement3D : MonoBehaviour
         lookRotation += new Vector3(-mouseInputY, mouseInputX, 0);
         lookRotation.x = Mathf.Clamp(lookRotation.x, -MAX_LOOK_ANGLE, MAX_LOOK_ANGLE);
 
-        transform.rotation = Quaternion.Euler(0, lookRotation.y, 0);
+        rb.MoveRotation(Quaternion.Euler(0, lookRotation.y, 0));
 
         // take input and update X-Z axis movement
         float strafeInput = Input.GetAxisRaw("Horizontal");
