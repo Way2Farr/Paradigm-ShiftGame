@@ -37,6 +37,9 @@ public class ItemController : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit raycastHit))
             {
             Instantiate(editor.itemGhost[ID], raycastHit.point, Quaternion.identity);
+
+            //TO DO: Find Wall parent to 2D Wall Parent
+
             Clicked = true;
             quantity--;
             quantityText.text = quantity.ToString();
