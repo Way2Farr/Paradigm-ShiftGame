@@ -20,7 +20,7 @@ public class ShiftWall : MonoBehaviour
             Vector3 position = contact.point;
             position.y = contact.otherCollider.transform.position.y;
             player2D.position = position;
-            player2D.localPosition = new Vector3(player2D.localPosition.x, player2D.localPosition.y, -0.001f);
+            player2D.localPosition = new Vector3(player2D.localPosition.x, player2D.localPosition.y, -1.1f);
             player2D.gameObject.SetActive(true);
             player3D.gameObject.SetActive(false);
             insideWall = true;

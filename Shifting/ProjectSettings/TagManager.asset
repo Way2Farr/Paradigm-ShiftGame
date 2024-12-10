@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - LevelEditor
+  - ItemImage
+  - MAST_Holder
   layers:
   - Default
   - TransparentFX
