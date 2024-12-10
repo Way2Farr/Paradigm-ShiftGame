@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class Camera3D : MonoBehaviour
 {
+    public GameObject pointer;
+    public Camera firstPerson;
+    public Transform firstPersonOrientation;
+    
     [SerializeField]
     private Transform playerTransform;
 
     private PlayerMovement3D playerMovement3D;
     private Vector3 offset;
     private Vector3 velocity; // used for smoothly moving the camera with Vector3.SmoothDamp()
+
+
     void Start()
     {
         playerMovement3D = playerTransform.GetComponent<PlayerMovement3D>();
@@ -19,6 +25,16 @@ public class Camera3D : MonoBehaviour
 
     // Added Cursor Unlocking Within Wall
     void Update() {
+
+        firstPersonOrientation.rotation = transform.rotation;
+
+        //Toggle Cameras to first person
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            gameObject.SetActive(!gameObject.activeSelf);
+            firstPerson.gameObject.SetActive(!firstPerson.gameObject.activeSelf);
+            pointer.gameObject.SetActive(!pointer.gameObject.activeSelf);
+        }
 
         if (ShiftWall.insideWall == true) {
             Cursor.lockState = CursorLockMode.None;
