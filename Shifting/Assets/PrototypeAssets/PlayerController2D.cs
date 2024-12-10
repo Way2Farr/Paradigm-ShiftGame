@@ -66,7 +66,7 @@ public class PlayerController2D : MonoBehaviour
 
         float speedToAdd = xMovement * speed * modifier;
 
-        if (IsGrounded())
+        if (ctx.performed || IsGrounded())
         {
             if (ctx.ReadValue<float>() > 0.5)
             {
@@ -103,7 +103,6 @@ public class PlayerController2D : MonoBehaviour
 
         float speedToAdd = xMovement * speed * modifier;
 
-        Debug.Log
         //_rigidbody.velocity = new Vector2(_currentVelocity, 0);
         if (ctx.performed && IsGrounded())
         {
