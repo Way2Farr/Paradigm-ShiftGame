@@ -9,6 +9,8 @@ public class PlayerCamera : MonoBehaviour
 
     [SerializeField]
     private GameObject pointerPrefab;
+    [SerializeField]
+    private GameObject shutterPrefab;
 
     [SerializeField]
     private Transform playerTransform; // set this to be the 3d character
@@ -17,13 +19,16 @@ public class PlayerCamera : MonoBehaviour
     private Vector3 heightOffset; // only used for first person, so camera feels at head height
     private bool isFirstPerson;
     private GameObject pointer;
+    private GameObject shutter;
     public Transform player2DTransform; // dont touch this in editor
     void Start()
     {
         canvas = Component.FindFirstObjectByType<Canvas>(); // pretty rushed implementation, assumes that there is an Canvas in the scene
         Debug.Assert(canvas != null, "Missing canvas in scene");
         pointer = Instantiate(pointerPrefab);
-        pointer.transform.SetParent(canvas.transform, false);
+        pointer.transform.SetParent(canvas.transform, false); // the false is so unity doesn't move it elsewhere when parenting
+        shutter = Instantiate(shutterPrefab);
+        shutter.transform.SetParent(canvas.transform, false);
 
         playerMovement3D = playerTransform.GetComponent<PlayerMovement3D>();
         offset = new Vector3(0, 1, -5);
@@ -44,6 +49,10 @@ public class PlayerCamera : MonoBehaviour
 
         if(player2DTransform == null && Input.GetKeyDown(KeyCode.C)) { // need to be outside of wall to change perspective
             ToggleFirstPerson();
+        }
+
+        if (isFirstPerson && Input.GetMouseButtonDown(0)) {
+            SnapPhoto();
         }
     }
 
@@ -75,12 +84,37 @@ public class PlayerCamera : MonoBehaviour
         // // use boolean to determine which perspective we want, update state accordingly
         if (isFirstPerson) { // going to 3rd person
             pointer.SetActive(false);
+            shutter.SetActive(false);
+            foreach(ShutterClose s in shutter.GetComponentsInChildren<ShutterClose>()) {
+                s.Reset();
+            }
         }
         else { // going to 1st person
             pointer.SetActive(true);
+            shutter.SetActive(true);
         }
 
-        isFirstPerson = !isFirstPerson;
-        
+        isFirstPerson = !isFirstPerson;   
+    }
+
+    void SnapPhoto() {
+        Ray polaroid = new Ray(transform.position, transform.forward);
+        RaycastHit photo;
+
+        if(Physics.Raycast(polaroid, out photo, 100)){
+            if(photo.collider.CompareTag("GameItem")){
+                foreach(ShutterClose s in shutter.GetComponentsInChildren<ShutterClose>()) {
+                    s.takePhoto();
+                }
+                Destroy(photo.collider.gameObject);
+                Debug.Log("here");
+            }
+            else{
+                Debug.Log(photo.collider.gameObject);
+            }
+        }
+        else {
+            Debug.Log("nothing found");
+        }
     }
 }

@@ -106,5 +106,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointerPrefab: {fileID: 6957214958271915153, guid: 7aee6c0215f7f89478adcedd3b67143f, type: 3}
+  shutterPrefab: {fileID: 6443329768030035533, guid: 3486d29e10f3ab34fa5432e6bbb42429, type: 3}
   playerTransform: {fileID: 0}
   player2DTransform: {fileID: 0}
