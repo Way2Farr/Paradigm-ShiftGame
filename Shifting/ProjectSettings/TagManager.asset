@@ -8,6 +8,7 @@ TagManager:
   - ItemImage
   - GameItem
   - Death
+  - Win
   layers:
   - Default
   - TransparentFX
