@@ -7,6 +7,8 @@ public class Camera3D : MonoBehaviour
     public GameObject pointer;
     public Camera firstPerson;
     public Transform firstPersonOrientation;
+
+    private AudioListener audioListener;
     
     [SerializeField]
     private Transform playerTransform;
@@ -20,6 +22,7 @@ public class Camera3D : MonoBehaviour
     {
         playerMovement3D = playerTransform.GetComponent<PlayerMovement3D>();
         offset = new Vector3(0, 1, -5);
+        audioListener = GetComponent<AudioListener>();
         
     }
 
@@ -32,6 +35,7 @@ public class Camera3D : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
         {
             gameObject.SetActive(!gameObject.activeSelf);
+            audioListener.enabled = !audioListener.enabled;
             firstPerson.gameObject.SetActive(!firstPerson.gameObject.activeSelf);
             pointer.gameObject.SetActive(!pointer.gameObject.activeSelf);
         }
