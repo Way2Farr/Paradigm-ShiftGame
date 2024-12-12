@@ -7,8 +7,6 @@ public class firstPerson : MonoBehaviour
 
     // Update is called once per frame
 
-    private AudioListener audioListener;
-
     public float mouseSensitivity = 80f;
     public Transform playerBody;
     private float xRotation = 0f;
@@ -20,9 +18,6 @@ public class firstPerson : MonoBehaviour
     public shutterClose shutter1;
     public shutterClose shutter2;
 
-    void Start(){
-        audioListener = GetComponent<AudioListener>();
-    }
 
     void Update()
     {
@@ -31,7 +26,6 @@ public class firstPerson : MonoBehaviour
         //Toggle to First Person
         if (Input.GetKeyDown(KeyCode.C))
         {
-            audioListener.enabled = !audioListener.enabled;
             thirdPerson.gameObject.SetActive(!thirdPerson.gameObject.activeSelf);
             gameObject.SetActive(!gameObject.activeSelf);
             pointer.gameObject.SetActive(!pointer.gameObject.activeSelf);
