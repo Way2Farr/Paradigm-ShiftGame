@@ -27,6 +27,10 @@ public class PlayerCamera : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
+
+        if(Input.GetMouseButtonDown(1)) {
+            offset = Vector3.zero;
+        }
     }
 
 
