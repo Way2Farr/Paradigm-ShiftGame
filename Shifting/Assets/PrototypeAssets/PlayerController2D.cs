@@ -182,33 +182,12 @@ public class PlayerController2D : MonoBehaviour
         {
             hasDoubleJump = true;
 
-            if (movingInAir)
-            {
-                _currentVelocity = 0;
-            }
-            movingInAir = false;
+     
         }
         else
         {
-            _currentVelocity *= 0.95f;
         }
 
-        if (movingInAir)
-        {
-            // decay when higher velocity
-            if (Mathf.Abs(xMovement) > 0)
-            {
-
-
-                _currentVelocity *= 0.9f;
-
-            }
-            else
-            {
-
-                //_currentVelocity = _currentVelocity;
-
-            }
-        }
+       
     }
 }
