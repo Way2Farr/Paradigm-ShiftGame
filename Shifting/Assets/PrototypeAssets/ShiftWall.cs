@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class ShiftWall : MonoBehaviour
 {
-    [SerializeField]
-    private FollowPlayer cameraScript;
+    private PlayerCamera playerCamera;
     [SerializeField]
     private Transform player2D;
     [SerializeField]
     private Transform player3D;
+
+    void Start() {
+        playerCamera = Camera.main.GetComponent<PlayerCamera>();
+    }
 
     // Changed to public static to reference in PlayerCamera3D
     public static bool insideWall;
@@ -24,7 +27,7 @@ public class ShiftWall : MonoBehaviour
             player2D.gameObject.SetActive(true);
             player3D.gameObject.SetActive(false);
             insideWall = true;
-            cameraScript.wall = transform;
+            playerCamera.player2DTransform = player2D;
         }
     }
 
@@ -35,7 +38,7 @@ public class ShiftWall : MonoBehaviour
             player2D.gameObject.SetActive(false);
             player3D.gameObject.SetActive(true);
             insideWall = false;
-            cameraScript.wall = null;
+            playerCamera.player2DTransform = null;
         }
     }
 }
