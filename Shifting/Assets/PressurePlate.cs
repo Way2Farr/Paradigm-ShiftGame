@@ -48,10 +48,12 @@ public class PressurePlate : MonoBehaviour
     {
         if (other.collider.CompareTag("Player") || other.collider.CompareTag("GameItem"))
         {
+
             moveBack = true;
             other.transform.parent = null;
+            if(transform.childCount == 0) {
             GetComponent<MeshRenderer>().material.color = Color.green;
-
+            }
         }
 
     }
