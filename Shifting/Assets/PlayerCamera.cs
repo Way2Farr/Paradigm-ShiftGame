@@ -8,12 +8,15 @@ public class PlayerCamera : MonoBehaviour
     private Transform playerTransform;
     private PlayerMovement3D playerMovement3D;
     private Vector3 offset;
+    private Vector3 offset2D;
     public Transform player2DTransform;
     void Start()
     {
         playerMovement3D = playerTransform.GetComponent<PlayerMovement3D>();
         offset = new Vector3(0, 1, -5);
-        
+        offset2D = new Vector3(0, 1, -10);
+
+
     }
 
     // Added Cursor Unlocking Within Wall
@@ -41,7 +44,7 @@ public class PlayerCamera : MonoBehaviour
             transform.rotation = lookRotation;
         }
         else {
-            transform.position = player2DTransform.position + player2DTransform.rotation * offset;
+            transform.position = player2DTransform.position + player2DTransform.rotation * offset2D;
             transform.rotation = player2DTransform.rotation;
             Debug.Log(player2DTransform.position);
         }
