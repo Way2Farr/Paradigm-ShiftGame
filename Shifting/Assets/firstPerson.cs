@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class firstPerson : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class firstPerson : MonoBehaviour
 
     public shutterClose shutter1;
     public shutterClose shutter2;
+
+    [SerializeField] private UnityEvent photoIncrement;
 
     void Start(){
         audioListener = GetComponent<AudioListener>();
@@ -47,6 +50,13 @@ public class firstPerson : MonoBehaviour
                     shutter1.takePhoto();
                     shutter2.takePhoto();
                     Destroy(photo.collider.gameObject);
+
+                    photoIncrement.Invoke();
+                    
+
+               
+
+                  
                 }
             }
         }
