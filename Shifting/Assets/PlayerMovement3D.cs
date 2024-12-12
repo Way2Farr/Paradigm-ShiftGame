@@ -7,13 +7,11 @@ public class PlayerMovement3D : MonoBehaviour
 
     // Animator Variables --
 
-    enum PlayerState {Front, Back, Walking}
-
-    PlayerState state;
-
-    public bool stateComplete;
-
     public Animator animator;
+
+    public SpriteRenderer spriteRenderer;
+
+    private bool movingBackwards;
 
     // --
     public Vector3 LookRotation { get {return lookRotation;} }
@@ -50,76 +48,18 @@ public class PlayerMovement3D : MonoBehaviour
     PlayerInput();
         // take input and update X-Z axis movement
     XZMovement();
-
         // take input and update Y axis movement
     YMovement();
 
-        //Selects Animation State
-        if(stateComplete) {
-            SelectState();
-        }
-
-        UpdateState();
+    CheckSideways();
     }
+
 
     bool IsGrounded() {
         Vector3 extents = c.bounds.extents;
         extents.y = GROUNDED_MARGIN;
         return Physics.BoxCast(transform.position, extents, Vector3.down, transform.rotation, c.bounds.extents.y);
     }
-
-    //Picks Animation based on player Input
-    void SelectState() {
-        stateComplete = false;
-        if(IsGrounded() == true) {
-
-            if() {
-            state = PlayerState.Front;
-            CheckFront();
-            }
-        else 
-        {
-            state = PlayerState.Back;
-            CheckBack();
-
-        }
-    }
-        else {
-            state = PlayerState.Walking;
-            CheckWalking();
-        }
-    }
-
-    void UpdateState() {
-        switch(state){
-            case PlayerState.Front:
-            UpdateFront();
-            break;
-
-            case PlayerState.Back:
-            UpdateBack();
-            break;
-
-
-            case PlayerState.Walking:
-            UpdateWalking();
-            break;
-        }
-    }
-
-    void StartFront(){
-        animator.Play("CameronFront");
-    }
-
-    void StartBack(){
-        animator.Play("CameronBack");
-    }
-
-    void StartWalking(){
-        animator.Play("CameronWalking");
-    }
-
-
     void PlayerInput(){
         float mouseInputX = Input.GetAxis("Mouse X");
         float mouseInputY = Input.GetAxis("Mouse Y");
@@ -129,8 +69,6 @@ public class PlayerMovement3D : MonoBehaviour
         rb.MoveRotation(Quaternion.Euler(0, lookRotation.y, 0));
 
     }
-
-
     void XZMovement() {
         float strafeInput = Input.GetAxisRaw("Horizontal");
         float forwardInput = Input.GetAxisRaw("Vertical");
@@ -139,8 +77,13 @@ public class PlayerMovement3D : MonoBehaviour
 
         currentVelocity = Vector3.Lerp(currentVelocity, targetVelocity, ACCELERATION_FACTOR * Time.deltaTime);
 
-    }
 
+        animator.SetFloat("moveSpeed", currentVelocity.magnitude);
+
+        SpriteDirection(strafeInput);
+        MovingBackwards(forwardInput);
+
+    }
     void YMovement() {
 
         bool jumpInput = Input.GetButtonDown("Jump");
@@ -149,6 +92,45 @@ public class PlayerMovement3D : MonoBehaviour
         }
 
         rb.velocity = new Vector3(currentVelocity.x, rb.velocity.y, currentVelocity.z);
-        
+
+        animator.SetBool("isGrounded", IsGrounded());
+    
+    }
+
+     void SpriteDirection(float strafeInput) {
+        if (spriteRenderer != null)
+        {
+            if (strafeInput < 0)
+            {
+                spriteRenderer.flipX = true;
+            }
+            else if (strafeInput > 0)
+            {
+                spriteRenderer.flipX = false;
+            }
+        }
+     }
+
+     void MovingBackwards(float forwardInput) {
+        if(!movingBackwards && forwardInput < 0) {
+            movingBackwards = true;
+        } else if(movingBackwards && forwardInput > 0) {
+            movingBackwards = false;
+        }
+
+        animator.SetBool("facingCamera", movingBackwards);
+    }  
+
+        void CheckSideways()
+    {
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        {
+            animator.SetBool("isSideways", true);
+        }
+        else
+        {
+            animator.SetBool("isSideways", false);
+        }
     }
 }
+
