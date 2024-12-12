@@ -4,8 +4,19 @@ using UnityEngine;
 
 public class PlayerMovement3D : MonoBehaviour
 {
-    public Vector3 LookRotation { get {return lookRotation;} }
 
+    // Animator Variables --
+
+    enum PlayerState {Front, Back, Walking}
+
+    PlayerState state;
+
+    public bool stateComplete;
+
+    public Animator animator;
+
+    // --
+    public Vector3 LookRotation { get {return lookRotation;} }
     private readonly float ACCELERATION_FACTOR = 10;
     private readonly float GROUNDED_MARGIN = 0.1f;
     private readonly float MAX_LOOK_ANGLE = 70f;
@@ -36,6 +47,80 @@ public class PlayerMovement3D : MonoBehaviour
     void Update()
     {
         // take mouse input and rotate character
+    PlayerInput();
+        // take input and update X-Z axis movement
+    XZMovement();
+
+        // take input and update Y axis movement
+    YMovement();
+
+        //Selects Animation State
+        if(stateComplete) {
+            SelectState();
+        }
+
+        UpdateState();
+    }
+
+    bool IsGrounded() {
+        Vector3 extents = c.bounds.extents;
+        extents.y = GROUNDED_MARGIN;
+        return Physics.BoxCast(transform.position, extents, Vector3.down, transform.rotation, c.bounds.extents.y);
+    }
+
+    //Picks Animation based on player Input
+    void SelectState() {
+        stateComplete = false;
+        if(IsGrounded() == true) {
+
+            if() {
+            state = PlayerState.Front;
+            CheckFront();
+            }
+        else 
+        {
+            state = PlayerState.Back;
+            CheckBack();
+
+        }
+    }
+        else {
+            state = PlayerState.Walking;
+            CheckWalking();
+        }
+    }
+
+    void UpdateState() {
+        switch(state){
+            case PlayerState.Front:
+            UpdateFront();
+            break;
+
+            case PlayerState.Back:
+            UpdateBack();
+            break;
+
+
+            case PlayerState.Walking:
+            UpdateWalking();
+            break;
+        }
+    }
+
+    void StartFront(){
+        animator.Play("CameronFront");
+    }
+
+    void StartBack(){
+        animator.Play("CameronBack");
+    }
+
+    void StartWalking(){
+        animator.Play("CameronWalking");
+    }
+
+
+    void PlayerInput(){
         float mouseInputX = Input.GetAxis("Mouse X");
         float mouseInputY = Input.GetAxis("Mouse Y");
         lookRotation += new Vector3(-mouseInputY, mouseInputX, 0);
@@ -43,7 +128,10 @@ public class PlayerMovement3D : MonoBehaviour
 
         rb.MoveRotation(Quaternion.Euler(0, lookRotation.y, 0));
 
-        // take input and update X-Z axis movement
+    }
+
+
+    void XZMovement() {
         float strafeInput = Input.GetAxisRaw("Horizontal");
         float forwardInput = Input.GetAxisRaw("Vertical");
         targetVelocity = new Vector3(strafeInput, 0, forwardInput).normalized * walkSpeed;
@@ -51,18 +139,16 @@ public class PlayerMovement3D : MonoBehaviour
 
         currentVelocity = Vector3.Lerp(currentVelocity, targetVelocity, ACCELERATION_FACTOR * Time.deltaTime);
 
-        // take input and update Y axis movement
+    }
+
+    void YMovement() {
+
         bool jumpInput = Input.GetButtonDown("Jump");
         if (jumpInput && IsGrounded()) {
             rb.velocity = new Vector3(rb.velocity.x, Mathf.Sqrt(2 * -Physics.gravity.y * jumpHeight), rb.velocity.z);
         }
 
         rb.velocity = new Vector3(currentVelocity.x, rb.velocity.y, currentVelocity.z);
-    }
-
-    bool IsGrounded() {
-        Vector3 extents = c.bounds.extents;
-        extents.y = GROUNDED_MARGIN;
-        return Physics.BoxCast(transform.position, extents, Vector3.down, transform.rotation, c.bounds.extents.y);
+        
     }
 }
