@@ -3,7 +3,13 @@ guid: 619e47c7d72a2ec4c9fc4cd21136b25b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - player2D: {instanceID: 0}
+  - player3D: {instanceID: 0}
+  - noise1: {fileID: 8300000, guid: 003b441d9c55ed641867decd263352d9, type: 3}
+  - noise2: {fileID: 8300000, guid: 4057c41e72ca421448a591ece514737b, type: 3}
+  - noise3: {fileID: 8300000, guid: 6fd1c051b43874f49a773f877250a9a3, type: 3}
+  - peelNoise: {fileID: 8300000, guid: 9052b76109b1c5741a428e2371b46a87, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

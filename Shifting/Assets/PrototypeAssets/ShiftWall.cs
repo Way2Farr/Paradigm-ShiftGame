@@ -10,8 +10,17 @@ public class ShiftWall : MonoBehaviour
     [SerializeField]
     private Transform player3D;
 
+    private AudioSource shiftNoise;
+    public AudioClip noise1;
+    public AudioClip noise2;
+    public AudioClip noise3;
+    public AudioClip peelNoise;
+
     void Start() {
         playerCamera = Camera.main.GetComponent<PlayerCamera>();
+        GameObject shiftNoiseMaker = new GameObject("AudioPlayer");
+        shiftNoise = shiftNoiseMaker.AddComponent<AudioSource>();
+
     }
 
     // Changed to public static to reference in PlayerCamera3D
@@ -20,6 +29,11 @@ public class ShiftWall : MonoBehaviour
     {
         ContactPoint contact = collision.GetContact(0);
         if (contact.otherCollider.transform == player3D && Input.GetButton("Shift")) {
+            AudioClip chosenSound = (Random.Range(0, 3) == 0) ? noise1 : 
+            (Random.Range(0, 3) == 1) ? noise2 : 
+            noise3;
+            shiftNoise.PlayOneShot(chosenSound);
+
             Vector3 position = contact.point;
             position.y = contact.otherCollider.transform.position.y;
             player2D.position = position;
@@ -34,6 +48,7 @@ public class ShiftWall : MonoBehaviour
     void Update()
     {
         if (Input.GetMouseButton(2) && insideWall) {
+            shiftNoise.PlayOneShot(peelNoise);
             player3D.position = player2D.position;
             player2D.gameObject.SetActive(false);
             player3D.gameObject.SetActive(true);
