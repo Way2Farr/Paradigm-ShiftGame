@@ -52,11 +52,7 @@ public class firstPerson : MonoBehaviour
                     Destroy(photo.collider.gameObject);
 
                     photoIncrement.Invoke();
-                    
-
-               
-
-                  
+                
                 }
             }
         }
