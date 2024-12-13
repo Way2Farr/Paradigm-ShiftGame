@@ -7,6 +7,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerController2D : MonoBehaviour
 {
+    // Animator Variables --
+    public Animator animator;
+
+    public SpriteRenderer spriteRenderer;
+
     // layers
     [SerializeField] private LayerMask ground;
 
