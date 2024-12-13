@@ -31,7 +31,7 @@ public class MouseHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         }
         if (isTutorialLevel) {
             Debug.Log("Loading Tutorial Level scene");
-            StartCoroutine(Fading("TutorialLevel"));
+            StartCoroutine(Fading("Level Attempt"));
         }
         if (isQuit) {
             Debug.Log("Quitting application");

@@ -10339,8 +10339,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1ccfd47f438ab44a86230275136edf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 1002333122}
-  spriteRenderer: {fileID: 1002333121}
   ground:
     serializedVersion: 2
     m_Bits: 64
@@ -16167,6 +16165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 619e47c7d72a2ec4c9fc4cd21136b25b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraScript: {fileID: 0}
   player2D: {fileID: 531507245}
   player3D: {fileID: 1634596391043164285}
 --- !u!64 &1053631780
@@ -16511,6 +16510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 619e47c7d72a2ec4c9fc4cd21136b25b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraScript: {fileID: 0}
   player2D: {fileID: 531507245}
   player3D: {fileID: 1634596391043164285}
 --- !u!43 &1287037336
@@ -16727,6 +16727,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 619e47c7d72a2ec4c9fc4cd21136b25b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraScript: {fileID: 0}
   player2D: {fileID: 531507245}
   player3D: {fileID: 1634596391043164285}
 --- !u!64 &1302107079
