@@ -58,7 +58,7 @@ public class PlayerMovement3D : MonoBehaviour
     CheckSideways();
 
      // Check if the key is being held down
-        if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d"))
+        if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d") && IsGrounded())
         {
             // If the sound is not already playing, start it
             if (!legs.isPlaying)
@@ -69,7 +69,7 @@ public class PlayerMovement3D : MonoBehaviour
         else
         {
             // If the key is not being held, stop the sound
-            if (legs.isPlaying)
+            if (legs.isPlaying || !(IsGrounded()))
             {
                 legs.Stop();
             }
@@ -77,7 +77,7 @@ public class PlayerMovement3D : MonoBehaviour
     }
 
 
-    bool IsGrounded() {
+    public bool IsGrounded() {
         Vector3 extents = c.bounds.extents;
         extents.y = GROUNDED_MARGIN;
         return Physics.BoxCast(transform.position, extents, Vector3.down, transform.rotation, c.bounds.extents.y);
