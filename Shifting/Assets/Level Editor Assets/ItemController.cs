@@ -47,4 +47,9 @@ public class ItemController : MonoBehaviour
         }
     }
 
+    public void incrementQuantity(){
+        quantity++;
+        quantityText.text = quantity.ToString();
+    }
+
 }
