@@ -124,17 +124,6 @@
                 },
                 {
                     "name": "",
-                    "id": "d0cefa28-25cf-48d5-9156-e1a66ed7f5cd",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "433cbed9-f066-4f02-9aca-ffa4d3bfca71",
                     "path": "<Keyboard>/downArrow",
                     "interactions": "",
