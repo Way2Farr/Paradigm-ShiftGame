@@ -180,7 +180,6 @@ public class PlayerController2D : MonoBehaviour
         // apply ground friction
         if (IsGrounded() && Mathf.Abs(xMovement) < 0.3f)
         {
-            Debug.Log(_currentVelocity);
             _currentVelocity = 0;
             if (Mathf.Abs(_currentVelocity) < 3f)
             {

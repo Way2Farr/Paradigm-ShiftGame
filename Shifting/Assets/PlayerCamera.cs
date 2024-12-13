@@ -76,7 +76,6 @@ public class PlayerCamera : MonoBehaviour
         else {
             transform.position = player2DTransform.position + player2DTransform.rotation * offset;
             transform.rotation = player2DTransform.rotation;
-            Debug.Log(player2DTransform.position);
         }
     }
 
