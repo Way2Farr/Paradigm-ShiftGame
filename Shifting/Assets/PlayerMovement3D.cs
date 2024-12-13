@@ -13,6 +13,9 @@ public class PlayerMovement3D : MonoBehaviour
 
     private bool movingBackwards;
 
+    // Sound Variables --
+    public AudioSource legs;
+
     // --
     public Vector3 LookRotation { get {return lookRotation;} }
     private readonly float ACCELERATION_FACTOR = 10;
@@ -36,6 +39,7 @@ public class PlayerMovement3D : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         c = GetComponent<Collider>();
+        legs = GetComponent<AudioSource>();
 
         lookRotation = transform.rotation.eulerAngles;
         targetVelocity = Vector3.zero;
@@ -52,6 +56,24 @@ public class PlayerMovement3D : MonoBehaviour
     YMovement();
 
     CheckSideways();
+
+     // Check if the key is being held down
+        if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d"))
+        {
+            // If the sound is not already playing, start it
+            if (!legs.isPlaying)
+            {
+                legs.Play();
+            }
+        }
+        else
+        {
+            // If the key is not being held, stop the sound
+            if (legs.isPlaying)
+            {
+                legs.Stop();
+            }
+        }
     }
 
 
