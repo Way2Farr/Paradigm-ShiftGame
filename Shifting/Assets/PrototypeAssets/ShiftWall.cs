@@ -18,9 +18,9 @@ public class ShiftWall : MonoBehaviour
         ContactPoint contact = collision.GetContact(0);
         if (contact.otherCollider.transform == player3D && Input.GetButton("Shift")) {
             Vector3 position = contact.point;
-            position.y = contact.otherCollider.transform.position.y;
+            // position.y = contact.otherCollider.transform.position.y;
             player2D.position = position;
-            player2D.localPosition = new Vector3(player2D.localPosition.x, player2D.localPosition.y, -0.001f);
+            player2D.localPosition = new Vector3(player2D.localPosition.x + 0.1f, player2D.localPosition.y, player2D.localPosition.z - 0.1f);
             player2D.gameObject.SetActive(true);
             player3D.gameObject.SetActive(false);
             insideWall = true;
