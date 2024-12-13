@@ -27,6 +27,7 @@ public class ShiftWall : MonoBehaviour
         if (contact.otherCollider.transform == player3D && Input.GetButton("Shift")) {
             //move the 2d player into this wall's parent
             player2D.SetParent(transform.parent.transform);
+            Debug.Log(playerController2D);
             playerController2D.axis = transform.parent.transform;
 
             // set the position to be correct
