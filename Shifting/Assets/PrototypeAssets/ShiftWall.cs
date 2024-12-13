@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ShiftWall : MonoBehaviour
 {
-    private PlayerCamera playerCamera;
+    [SerializeField]
+    private FollowPlayer cameraScript;
     [SerializeField]
     private Transform player2D;
     [SerializeField]
@@ -27,13 +28,13 @@ public class ShiftWall : MonoBehaviour
         if (contact.otherCollider.transform == player3D && Input.GetButton("Shift")) {
             soundPlayer.shiftInNoise();
             Vector3 position = contact.point;
-            position.y = contact.otherCollider.transform.position.y;
+            // position.y = contact.otherCollider.transform.position.y;
             player2D.position = position;
-            player2D.localPosition = new Vector3(player2D.localPosition.x, player2D.localPosition.y, -0.001f);
+            player2D.localPosition = new Vector3(player2D.localPosition.x + 0.1f, player2D.localPosition.y, player2D.localPosition.z - 0.1f);
             player2D.gameObject.SetActive(true);
             player3D.gameObject.SetActive(false);
             insideWall = true;
-            playerCamera.player2DTransform = player2D;
+            cameraScript.wall = transform;
         }
     }
 
@@ -45,7 +46,7 @@ public class ShiftWall : MonoBehaviour
             player2D.gameObject.SetActive(false);
             player3D.gameObject.SetActive(true);
             insideWall = false;
-            playerCamera.player2DTransform = null;
+            cameraScript.wall = null;
         }
     }
 }
