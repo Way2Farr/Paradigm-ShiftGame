@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerController2D : MonoBehaviour
 {
+
+    // Animator Variables --
+    public Animator animator;
+
+    public SpriteRenderer spriteRenderer;
+
     // layers
     [SerializeField] private LayerMask ground;
 
@@ -36,16 +43,12 @@ public class PlayerController2D : MonoBehaviour
     // bools for movement
     public bool hasDoubleJump = true;
     public bool movingInAir = false;
+
     // Awake
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-
     }
 
     // Update is called once per frame
@@ -96,6 +99,8 @@ public class PlayerController2D : MonoBehaviour
             movingInAir = false;
         }
 
+        animator.SetFloat("moveX", Math.Abs(xMovement));
+
     }
 
     public void OnJump(InputAction.CallbackContext ctx)
@@ -130,6 +135,8 @@ public class PlayerController2D : MonoBehaviour
             hasDoubleJump = false;
 
         }
+
+        animator.SetFloat("moveY", _rigidbody.velocity.y);
     }
 
     bool IsGrounded()
@@ -139,6 +146,7 @@ public class PlayerController2D : MonoBehaviour
         float GROUNDED_MARGIN = 0.1f;
         extents.y = GROUNDED_MARGIN;
         return Physics.BoxCast(transform.position, extents, Vector3.down, transform.rotation, _collider.bounds.extents.y);
+
     }
 
     private void CheckIfGrounded()
@@ -164,6 +172,11 @@ public class PlayerController2D : MonoBehaviour
     void updateVelocity()
     {
 
+        grounded = IsGrounded();
+
+      
+
+        animator.SetBool("isGrounded", grounded);
         // apply ground friction
         if (IsGrounded() && Mathf.Abs(xMovement) < 0.3f)
         {
@@ -175,7 +188,7 @@ public class PlayerController2D : MonoBehaviour
                 _currentVelocity = 0;
             }
         }
-
+        SpriteDirection(xMovement);
 
         // refresh double jump
         if (IsGrounded())
@@ -190,4 +203,17 @@ public class PlayerController2D : MonoBehaviour
 
        
     }
+         void SpriteDirection(float xMovement) {
+        if (spriteRenderer != null)
+        {
+            if (xMovement < 0)
+            {
+                spriteRenderer.flipX = true;
+            }
+            else if (xMovement > 0)
+            {
+                spriteRenderer.flipX = false;
+            }
+        }
+     }
 }
