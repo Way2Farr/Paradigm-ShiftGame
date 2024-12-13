@@ -20,6 +20,7 @@ public class PlayerController2D : MonoBehaviour
     // components
     private Rigidbody _rigidbody;
     private Collider _collider;
+    public Transform axis; // we move based on our parent's rotation, which follows the wall's axis
 
     private float xMovement;
     private float _currentVelocity;
@@ -58,7 +59,7 @@ public class PlayerController2D : MonoBehaviour
         _rigidbody.velocity += Vector3.down * gravity * gravityMultiplier * Time.deltaTime;
         //IsGrounded();
         updateVelocity();
-        _rigidbody.velocity = new Vector2(_currentVelocity, _rigidbody.velocity.y);
+        _rigidbody.velocity = axis.rotation * new Vector3(_currentVelocity, _rigidbody.velocity.y);
 
 
     }
@@ -73,12 +74,12 @@ public class PlayerController2D : MonoBehaviour
         {
             if (ctx.ReadValue<float>() > 0.5)
             {
-                Debug.Log("Move left");
+                // Debug.Log("Move left");
                 _currentVelocity = speedToAdd * groundSpeedMultiplier;
             }
             else if (ctx.ReadValue<float>() < -0.5)
             {
-                Debug.Log("Move right");
+                // Debug.Log("Move right");
                 _currentVelocity = speedToAdd * groundSpeedMultiplier;
             }
         }
@@ -111,7 +112,7 @@ public class PlayerController2D : MonoBehaviour
         //_rigidbody.velocity = new Vector2(_currentVelocity, 0);
         if (ctx.performed && IsGrounded())
         {
-            Debug.Log("Jump");
+            // Debug.Log("Jump");
             //_currentVelocity = speedToAdd;
 
             Vector3 jump = new Vector3(0, 1, 0);
@@ -160,7 +161,7 @@ public class PlayerController2D : MonoBehaviour
         //if a collider was hit, we are grounded
         if (hits.Length > 0)
         {
-            Debug.Log("Is on ground");
+            // Debug.Log("Is on ground");
             //grounded = true;
         }
         else
@@ -180,7 +181,7 @@ public class PlayerController2D : MonoBehaviour
         // apply ground friction
         if (IsGrounded() && Mathf.Abs(xMovement) < 0.3f)
         {
-            Debug.Log(_currentVelocity);
+            // Debug.Log(_currentVelocity);
             _currentVelocity = 0;
             if (Mathf.Abs(_currentVelocity) < 3f)
             {
@@ -201,6 +202,7 @@ public class PlayerController2D : MonoBehaviour
         {
         }
 
+        Debug.Log(_currentVelocity);
        
     }
          void SpriteDirection(float xMovement) {

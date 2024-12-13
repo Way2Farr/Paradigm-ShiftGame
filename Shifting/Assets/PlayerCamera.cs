@@ -76,7 +76,6 @@ public class PlayerCamera : MonoBehaviour
         else {
             transform.position = player2DTransform.position + player2DTransform.rotation * offset;
             transform.rotation = player2DTransform.rotation;
-            Debug.Log(player2DTransform.position);
         }
     }
 
@@ -107,14 +106,7 @@ public class PlayerCamera : MonoBehaviour
                     s.takePhoto();
                 }
                 Destroy(photo.collider.gameObject);
-                Debug.Log("here");
             }
-            else{
-                Debug.Log(photo.collider.gameObject);
-            }
-        }
-        else {
-            Debug.Log("nothing found");
         }
     }
 }
