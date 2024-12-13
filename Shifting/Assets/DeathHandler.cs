@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DeathHandler : MonoBehaviour
 {
@@ -26,6 +27,10 @@ public class DeathHandler : MonoBehaviour
         {
             //Debug.Log("Collision detected");
             playerDead = true;
+        }
+        if (collision.gameObject.tag == "Win")
+        {
+            SceneManager.LoadScene("MainMenu");
         }
     }
 
