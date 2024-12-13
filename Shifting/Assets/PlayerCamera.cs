@@ -74,7 +74,7 @@ public class PlayerCamera : MonoBehaviour
             transform.rotation = lookRotation;
         }
         else {
-            transform.position = player2DTransform.position + player2DTransform.rotation * offset2D;
+            transform.position = player2DTransform.position + player2DTransform.rotation * offset;
             transform.rotation = player2DTransform.rotation;
         }
     }
